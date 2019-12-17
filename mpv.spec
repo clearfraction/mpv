@@ -87,7 +87,7 @@ Requires: mpv-libs%{?_isa} = %{version}-%{release}
 Libmpv development header files and libraries.
 
 %prep
-%autosetup -p1 -n mpv-%{?commit}%{?!commit:%{version}}
+%setup -n mpv-%{?commit}%{?!commit:%{version}}
 
 sed -i -e "s|c_preproc.standard_includes.append('/usr/local/include')|c_preproc.standard_includes.append('$(pkgconf --variable=includedir libavcodec)')|" wscript
 
