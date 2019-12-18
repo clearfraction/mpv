@@ -37,6 +37,7 @@ BuildRequires : pkgconfig(xkbcommon)
 BuildRequires : pkgconfig(xrandr)
 BuildRequires : pkgconfig(xscrnsaver)
 BuildRequires : zlib-dev
+BuildRequires : SDL2-dev
 
  
 %description
