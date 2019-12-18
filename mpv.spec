@@ -1,146 +1,170 @@
-Name:           mpv
-Version:        0.30.0
-Release:        1%{?gitrelease}%{?dist}
-Summary:        Movie player playing most video formats and DVDs
-License:        GPLv2+ and LGPLv2+
-URL:            http://mpv.io/
-Source0:        https://github.com/mpv-player/mpv/archive/v%{version}/%{name}-%{version}.tar.gz
+Name     : mpv
+Version  : 0.30.0
+Release  : 1
+URL      : https://github.com/mpv-player/mpv
+Source0  : https://github.com/mpv-player/mpv/archive/v0.30.0.tar.gz
+Patch1   : https://github.com/clearlinux-pkgs/mpv/raw/master/0001-waf-add-waf-as-a-patch-for-ClearLinux.patch
+Patch2   : https://github.com/clearlinux-pkgs/mpv/raw/master/0002-Makefile-quick-wrapper-for-waf.patch
+Summary  : mpv media player client library
+Group    : Development/Tools
+License  : GPL-2.0 LGPL-2.1
+Requires: mpv-bin = %{version}-%{release}
+Requires: mpv-data = %{version}-%{release}
+Requires: mpv-lib = %{version}-%{release}
+Requires: mpv-license = %{version}-%{release}
+BuildRequires : Vulkan-Headers-dev
+BuildRequires : Vulkan-Loader-dev
+BuildRequires : libX11-dev
+BuildRequires : libva-dev
+BuildRequires : mesa-dev
+BuildRequires : ffmpeg-dev
+BuildRequires : pkgconfig(alsa)
+BuildRequires : pkgconfig(libass)
+BuildRequires : pkgconfig(libplacebo)
+BuildRequires : pkgconfig(libpulse)
+BuildRequires : pkgconfig(libva)
+BuildRequires : pkgconfig(libva-drm)
+BuildRequires : pkgconfig(libva-x11)
+BuildRequires : pkgconfig(wayland-client)
+BuildRequires : pkgconfig(wayland-cursor)
+BuildRequires : pkgconfig(wayland-protocols)
+BuildRequires : pkgconfig(x11)
+BuildRequires : pkgconfig(xext)
+BuildRequires : pkgconfig(xinerama)
+BuildRequires : pkgconfig(xkbcommon)
+BuildRequires : pkgconfig(xrandr)
+BuildRequires : pkgconfig(xscrnsaver)
+BuildRequires : zlib-dev
 
-BuildRequires:  gcc pkg-config
-BuildRequires:  pkgconfig(alsa)
-BuildRequires:  desktop-file-utils
-BuildRequires:  pkgconfig(egl)
-BuildRequires:  pkgconfig(enca)
-BuildRequires:  pkgconfig(libavutil) >= 56.12.100
-BuildRequires:  pkgconfig(libavcodec) >= 58.16.100
-BuildRequires:  pkgconfig(libavformat) >= 58.9.100
-BuildRequires:  pkgconfig(libswscale) >= 5.0.101
-BuildRequires:  pkgconfig(libavfilter) >= 7.14.100
-BuildRequires:  pkgconfig(libswresample) >= 3.0.100
-BuildRequires:  pkgconfig(gbm)
-BuildRequires:  pkgconfig(gl)
-BuildRequires:  pkgconfig(jack)
-BuildRequires:  pkgconfig(uchardet) >= 0.0.5
-BuildRequires:  pkgconfig(rubberband)
-BuildRequires:  pkgconfig(libguess)
-
-#BuildRequires:  libshaderc-devel
-BuildRequires:  pkgconfig(vulkan)
-BuildRequires:  pkgconfig(libplacebo)
-BuildRequires:  pkgconfig(lcms2)
-BuildRequires:  pkgconfig(libarchive)
-BuildRequires:  pkgconfig(libass)
-BuildRequires:  pkgconfig(libbluray)
-BuildRequires:  pkgconfig(libcdio)
-BuildRequires:  pkgconfig(libcdio_paranoia)
-BuildRequires:  pkgconfig(libdrm)
-BuildRequires:  pkgconfig(libjpeg)
-BuildRequires:  pkgconfig(libpulse)
-#BuildRequires:  pkgconfig(libquvi-0.9)
-BuildRequires:  pkgconfig(libva)
-
-BuildRequires:  pkgconfig(luajit)
-
-BuildRequires:  pkgconfig(sdl2)
-#BuildRequires:  pkgconfig(smbclient)
-#BuildRequires:  pkgconfig(vdpau)
-#BuildRequires:  waf-python3
-BuildRequires:  pkgconfig(wayland-client)
-BuildRequires:  pkgconfig(wayland-cursor)
-BuildRequires:  pkgconfig(wayland-egl)
-BuildRequires:  pkgconfig(wayland-protocols)
-BuildRequires:  pkgconfig(wayland-scanner)
-BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xext)
-BuildRequires:  pkgconfig(xinerama)
-BuildRequires:  pkgconfig(xkbcommon)
-BuildRequires:  pkgconfig(xrandr)
-BuildRequires:  pkgconfig(xscrnsaver)
-BuildRequires:  pkgconfig(xv)
-BuildRequires:  pkgconfig(zimg)
-BuildRequires:  pkgconfig(zlib)
-#BuildRequires:  /usr/bin/rst2man
-BuildRequires:  perl-Math-BigInt-GMP perl-Math-Base36
-BuildRequires:  perl-Math-Base-Convert 
-BuildRequires:  perl-Encode-HanExtra perl-Encode-JIS2K perl-Encode-Locale
-
-Provides:       mplayer-backend
-
+ 
 %description
-Mpv is a movie player based on MPlayer and mplayer2. It supports a wide variety
-of video file formats, audio and video codecs, and subtitle types. Special
-input URL types are available to read input from a variety of sources other
-than disk files. Depending on platform, a variety of different video and audio
-output methods are supported.
-
-%package libs
-Summary: Dynamic library for Mpv frontends 
-
-%description libs
-This package contains the dynamic library libmpv, which provides access to Mpv.
-
-%package libs-dev
-Summary: Development package for libmpv
-Requires: mpv-libs%{?_isa} = %{version}-%{release}
-
-%description libs-dev
-Libmpv development header files and libraries.
-
+TA ("Tree Allocator") is a wrapper around malloc() and related functions,
+adding features like automatically freeing sub-trees of memory allocations if
+a parent allocation is freed.
+ 
+%package bin
+Summary: bin components for the mpv package.
+Group: Binaries
+Requires: mpv-data = %{version}-%{release}
+Requires: mpv-license = %{version}-%{release}
+ 
+%description bin
+bin components for the mpv package.
+ 
+ 
+%package data
+Summary: data components for the mpv package.
+Group: Data
+ 
+%description data
+data components for the mpv package.
+ 
+ 
+%package dev
+Summary: dev components for the mpv package.
+Group: Development
+Requires: mpv-lib = %{version}-%{release}
+Requires: mpv-bin = %{version}-%{release}
+Requires: mpv-data = %{version}-%{release}
+Provides: mpv-devel = %{version}-%{release}
+Requires: mpv = %{version}-%{release}
+ 
+%description dev
+dev components for the mpv package.
+ 
+ 
+%package doc
+Summary: doc components for the mpv package.
+Group: Documentation
+ 
+%description doc
+doc components for the mpv package.
+ 
+ 
+%package lib
+Summary: lib components for the mpv package.
+Group: Libraries
+Requires: mpv-data = %{version}-%{release}
+Requires: mpv-license = %{version}-%{release}
+ 
+%description lib
+lib components for the mpv package.
+ 
+ 
+%package license
+Summary: license components for the mpv package.
+Group: Default
+ 
+%description license
+license components for the mpv package.
+ 
+ 
 %prep
-%setup -n mpv-%{?commit}%{?!commit:%{version}}
-
-sed -i -e "s|c_preproc.standard_includes.append('/usr/local/include')|c_preproc.standard_includes.append('$(pkgconf --variable=includedir libavcodec)')|" wscript
-
-
+%setup -q -n mpv-%{version}
+%patch1 -p1
+%patch2 -p1
+ 
 %build
-%set_build_flags
-%{_bindir}/waf configure \
-    --prefix=%{_prefix} \
-    --bindir=%{_bindir} \
-    --libdir=%{_libdir} \
-    --mandir=%{_mandir} \
-    --docdir=%{_docdir}/%{name} \
-    --confdir=%{_sysconfdir}/%{name} \
-    --disable-build-date \
-    --enable-libmpv-shared \
-    --enable-sdl2 \
-    --enable-libarchive \
-    --enable-libsmbclient \
-    --enable-dvdnav \
-    --enable-cdda \
-    --enable-html-build \
-%{?_with_rpi:--enable-rpi --disable-vaapi} \
-    --enable-dvbin
-    
-
-%{_bindir}/waf -v build %{?_smp_mflags}
-
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1563233323
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
+make  %{?_smp_mflags}
+ 
+ 
 %install
-%{_bindir}/waf install --destdir=%{buildroot}
-
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-install -Dpm 644 README.md etc/input.conf etc/mpv.conf -t %{buildroot}%{_docdir}/%{name}/
-
+export SOURCE_DATE_EPOCH=1563233323
+rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/mpv
+cp Copyright %{buildroot}/usr/share/package-licenses/mpv/Copyright
+cp LICENSE.GPL %{buildroot}/usr/share/package-licenses/mpv/LICENSE.GPL
+cp LICENSE.LGPL %{buildroot}/usr/share/package-licenses/mpv/LICENSE.LGPL
+%make_install
+ 
 %files
-%docdir %{_docdir}/%{name}/
-%{_docdir}/%{name}/
-%license LICENSE.GPL LICENSE.LGPL Copyright
-%{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/*/apps/%{name}*.*
-%{_datadir}/zsh/site-functions/_mpv
-%{_mandir}/man1/%{name}.*
-%dir %{_sysconfdir}/%{name}/
-%config(noreplace) %{_sysconfdir}/%{name}/encoding-profiles.conf
-
-%files libs
-%license LICENSE.GPL LICENSE.LGPL Copyright
-%{_libdir}/libmpv.so.*
-
-%files libs-dev
-%{_includedir}/%{name}/
-%{_libdir}/libmpv.so
-%{_libdir}/pkgconfig/mpv.pc
-
-%changelog
-
+%defattr(-,root,root,-)
+ 
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/mpv
+ 
+%files data
+%defattr(-,root,root,-)
+/usr/share/applications/mpv.desktop
+/usr/share/icons/hicolor/16x16/apps/mpv.png
+/usr/share/icons/hicolor/32x32/apps/mpv.png
+/usr/share/icons/hicolor/64x64/apps/mpv.png
+/usr/share/icons/hicolor/scalable/apps/mpv.svg
+/usr/share/icons/hicolor/symbolic/apps/mpv-symbolic.svg
+/usr/share/zsh/site-functions/_mpv
+ 
+%files dev
+%defattr(-,root,root,-)
+/usr/include/mpv/client.h
+/usr/include/mpv/opengl_cb.h
+/usr/include/mpv/qthelper.hpp
+/usr/include/mpv/render.h
+/usr/include/mpv/render_gl.h
+/usr/include/mpv/stream_cb.h
+/usr/lib64/libmpv.so*
+/usr/lib64/pkgconfig/mpv.pc
+ 
+%files doc
+%defattr(0644,root,root,0755)
+%doc /usr/share/doc/mpv/*
+ 
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/libmpv.so.*
+ 
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/mpv/Copyright
+/usr/share/package-licenses/mpv/LICENSE.GPL
+/usr/share/package-licenses/mpv/LICENSE.LGPL
