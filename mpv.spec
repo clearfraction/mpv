@@ -14,6 +14,8 @@ Requires: mpv-lib = %{version}-%{release}
 Requires: mpv-license = %{version}-%{release}
 BuildRequires : Vulkan-Headers-dev
 BuildRequires : Vulkan-Loader-dev
+BuildRequires : SPIRV-Tools-dev
+BuildRequires : SPIRV-Headers-dev
 BuildRequires : libX11-dev
 BuildRequires : libva-dev
 BuildRequires : mesa-dev
