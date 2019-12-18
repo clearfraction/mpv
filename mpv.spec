@@ -38,9 +38,9 @@ BuildRequires : pkgconfig(xrandr)
 BuildRequires : pkgconfig(xscrnsaver)
 BuildRequires : zlib-dev
 BuildRequires : SDL2
-BuildRequires : SDL2-bin
 BuildRequires : SDL2-dev
 BuildRequires : compat-SDL2-soname1
+BuildRequires : LuaJIT 
 BuildRequires : LuaJIT-dev
 BuildRequires : libjpeg-turbo-dev
 
