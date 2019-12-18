@@ -43,6 +43,8 @@ BuildRequires : compat-SDL2-soname1
 BuildRequires : LuaJIT 
 BuildRequires : LuaJIT-dev
 BuildRequires : libjpeg-turbo-dev
+BuildRequires:  pkgconfig(libarchive)
+
 
  
 %description
