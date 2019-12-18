@@ -37,7 +37,7 @@ BuildRequires : pkgconfig(xkbcommon)
 BuildRequires : pkgconfig(xrandr)
 BuildRequires : pkgconfig(xscrnsaver)
 BuildRequires : zlib-dev
-BuildRequires : SDL2-dev
+BuildRequires : SDL2-dev SDL2_gfx-dev SDL2_image-dev SDL2_mixer-dev SDL2_net-dev SDL2_ttf-dev
 BuildRequires : LuaJIT-dev
 BuildRequires : libjpeg-turbo-dev
 
