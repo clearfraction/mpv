@@ -1,3 +1,5 @@
+%global abi_package %{nil}
+
 Name     : mpv
 Version  : 0.30.0
 Release  : 1
@@ -39,7 +41,6 @@ BuildRequires : pkgconfig(xscrnsaver)
 BuildRequires : zlib-dev
 BuildRequires : SDL2
 BuildRequires : SDL2-dev
-BuildRequires : compat-SDL2-soname1
 BuildRequires : LuaJIT 
 BuildRequires : LuaJIT-dev
 BuildRequires : libjpeg-turbo-dev
