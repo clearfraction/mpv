@@ -3,8 +3,8 @@ Version  : 0.30.0
 Release  : 1
 URL      : https://github.com/mpv-player/mpv
 Source0  : https://github.com/mpv-player/mpv/archive/v0.30.0.tar.gz
-Patch1   : https://github.com/clearlinux-pkgs/mpv/raw/master/0001-waf-add-waf-as-a-patch-for-ClearLinux.patch
-Patch2   : https://github.com/clearlinux-pkgs/mpv/raw/master/0002-Makefile-quick-wrapper-for-waf.patch
+Patch1   : 0001-waf-add-waf-as-a-patch-for-ClearLinux.patch
+Patch2   : 0002-Makefile-quick-wrapper-for-waf.patch
 Summary  : mpv media player client library
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
