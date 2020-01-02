@@ -1,10 +1,10 @@
 %global abi_package %{nil}
 
 Name     : mpv
-Version  : 0.30.0
+Version  : 0.31.0
 Release  : 1
 URL      : https://github.com/mpv-player/mpv
-Source0  : https://github.com/mpv-player/mpv/archive/v0.30.0.tar.gz
+Source0  : https://github.com/mpv-player/mpv/archive/v0.31.0.tar.gz
 Patch1   : 0001-waf-add-waf-as-a-patch-for-ClearLinux.patch
 Patch2   : 0002-Makefile-quick-wrapper-for-waf.patch
 Summary  : mpv media player client library
@@ -20,8 +20,8 @@ BuildRequires : SPIRV-Tools-dev
 BuildRequires : SPIRV-Headers-dev
 BuildRequires : libX11-dev
 BuildRequires : libva-dev
-BuildRequires : mesa-dev
-BuildRequires : ffmpeg-dev
+BuildRequires : mesa-dev 
+BuildRequires : ffmpeg-dev >= 4.2.2
 BuildRequires : pkgconfig(alsa)
 BuildRequires : pkgconfig(libass)
 BuildRequires : pkgconfig(libplacebo)
