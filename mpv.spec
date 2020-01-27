@@ -1,10 +1,10 @@
 %global abi_package %{nil}
 
 Name     : mpv
-Version  : 0.31.0
+Version  : 0.32.0
 Release  : 1
 URL      : https://github.com/mpv-player/mpv
-Source0  : https://github.com/mpv-player/mpv/archive/v0.31.0.tar.gz
+Source0  : https://github.com/mpv-player/mpv/archive/v0.32.0.tar.gz
 Patch1   : 0001-waf-add-waf-as-a-patch-for-ClearLinux.patch
 Patch2   : 0002-Makefile-quick-wrapper-for-waf.patch
 Summary  : mpv media player client library
@@ -154,6 +154,7 @@ cp LICENSE.LGPL %{buildroot}/usr/share/package-licenses/mpv/LICENSE.LGPL
 /usr/share/icons/hicolor/scalable/apps/mpv.svg
 /usr/share/icons/hicolor/symbolic/apps/mpv-symbolic.svg
 /usr/share/zsh/site-functions/_mpv
+/usr/share/bash-completion/completions/mpv
  
 %files dev
 %defattr(-,root,root,-)
