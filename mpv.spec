@@ -7,7 +7,7 @@ URL      : https://github.com/mpv-player/mpv
 Source0  : https://github.com/mpv-player/mpv/archive/v0.32.0.tar.gz
 Patch1   : 0001-waf-add-waf-as-a-patch-for-ClearLinux.patch
 Patch2   : 0002-Makefile-quick-wrapper-for-waf.patch
-Summary  : mpv media player client library
+Summary  : media player
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
 Requires: mpv-bin = %{version}-%{release}
