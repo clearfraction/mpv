@@ -1,5 +1,6 @@
 %global abi_package %{nil}
 
+
 Name     : mpv
 Version  : 0.32.0
 Release  : 1
