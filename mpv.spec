@@ -3,7 +3,7 @@
 
 Name     : mpv
 Version  : 0.32.0
-Release  : 1
+Release  : 2
 URL      : https://github.com/mpv-player/mpv
 Source0  : https://github.com/mpv-player/mpv/archive/v0.32.0.tar.gz
 Patch1   : 0001-waf-add-waf-as-a-patch-for-ClearLinux.patch
