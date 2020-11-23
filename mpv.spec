@@ -2,10 +2,10 @@
 
 
 Name     : mpv
-Version  : 0.32.0
+Version  : 0.33.0
 Release  : 2
 URL      : https://github.com/mpv-player/mpv
-Source0  : https://github.com/mpv-player/mpv/archive/v0.32.0.tar.gz
+Source0  : https://github.com/mpv-player/mpv/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1   : 0001-waf-add-waf-as-a-patch-for-ClearLinux.patch
 Patch2   : 0002-Makefile-quick-wrapper-for-waf.patch
 Summary  : media player
@@ -45,7 +45,7 @@ BuildRequires : SDL2-dev
 BuildRequires : LuaJIT 
 BuildRequires : LuaJIT-dev
 BuildRequires : libjpeg-turbo-dev
-BuildRequires:  pkgconfig(libarchive)
+BuildRequires :  pkgconfig(libarchive)
 
 
  
@@ -147,6 +147,7 @@ cp LICENSE.LGPL %{buildroot}/usr/share/package-licenses/mpv/LICENSE.LGPL
 /usr/share/icons/hicolor/16x16/apps/mpv.png
 /usr/share/icons/hicolor/32x32/apps/mpv.png
 /usr/share/icons/hicolor/64x64/apps/mpv.png
+/usr/share/icons/hicolor/128x128/apps/mpv.png
 /usr/share/icons/hicolor/scalable/apps/mpv.svg
 /usr/share/icons/hicolor/symbolic/apps/mpv-symbolic.svg
 /usr/share/zsh/site-functions/_mpv
@@ -156,7 +157,6 @@ cp LICENSE.LGPL %{buildroot}/usr/share/package-licenses/mpv/LICENSE.LGPL
 %defattr(-,root,root,-)
 /usr/include/mpv/client.h
 /usr/include/mpv/opengl_cb.h
-/usr/include/mpv/qthelper.hpp
 /usr/include/mpv/render.h
 /usr/include/mpv/render_gl.h
 /usr/include/mpv/stream_cb.h
