@@ -115,6 +115,9 @@ license components for the mpv package.
 %setup -q -n mpv-%{version}
 %patch1 -p1
 %patch2 -p1
+
+# fix bad pkgconfig
+sed -i 's|vulkan64|vulkan|g' /usr/lib64/pkgconfig/vulkan.pc
  
 %build
 export LANG=C.UTF-8
