@@ -2,8 +2,8 @@
 
 
 Name     : mpv
-Version  : 0.33.0
-Release  : 2
+Version  : 0.33.1
+Release  : 1
 URL      : https://github.com/mpv-player/mpv
 Source0  : https://github.com/mpv-player/mpv/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1   : 0001-waf-add-waf-as-a-patch-for-ClearLinux.patch
@@ -115,6 +115,8 @@ license components for the mpv package.
 %setup -q -n mpv-%{version}
 %patch1 -p1
 %patch2 -p1
+# fix libplacebo API
+curl -L https://raw.githubusercontent.com/mpv-player/mpv/7c4465cefb27d4e0d07535d368febdf77b579566/video/out/placebo/ra_pl.c  -o %{_builddir}/mpv-%{version}/video/out/placebo/ra_pl.c
 
 # fix bad pkgconfig
 sed -i 's|vulkan64|vulkan|g' /usr/lib64/pkgconfig/vulkan.pc
