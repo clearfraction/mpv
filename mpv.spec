@@ -8,6 +8,9 @@ URL      : https://github.com/mpv-player/mpv
 Source0  : https://github.com/mpv-player/mpv/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1   : 0001-waf-add-waf-as-a-patch-for-ClearLinux.patch
 Patch2   : 0002-Makefile-quick-wrapper-for-waf.patch
+Patch3   : https://raw.githubusercontent.com/clearlinux-pkgs/mpv/master/0003-vo_gpu-placebo-update-for-upstream-API-changes.patch
+Patch4   : https://raw.githubusercontent.com/clearlinux-pkgs/mpv/master/0004-vo_gpu-libplacebo-require-v2.72.0.patch
+Patch5   : https://raw.githubusercontent.com/clearlinux-pkgs/mpv/master/0005-vo_gpu-placebo-keep-track-of-texture-sample-mode.patch
 Summary  : media player
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
@@ -115,6 +118,11 @@ license components for the mpv package.
 %setup -q -n mpv-%{version}
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+
+
  
 %build
 export LANG=C.UTF-8
