@@ -1,16 +1,13 @@
 %global abi_package %{nil}
 
-
 Name     : mpv
 Version  : 0.33.1
 Release  : 1
 URL      : https://github.com/mpv-player/mpv
-Source0  : https://github.com/mpv-player/mpv/archive/v%{version}/%{name}-%{version}.tar.gz
+#Source0  : https://github.com/mpv-player/mpv/archive/v%%{version}/%%{name}-%%{version}.tar.gz
+Source   : https://github.com/mpv-player/mpv/archive/refs/heads/master.zip 
 Patch1   : 0001-waf-add-waf-as-a-patch-for-ClearLinux.patch
 Patch2   : 0002-Makefile-quick-wrapper-for-waf.patch
-Patch3   : https://raw.githubusercontent.com/clearlinux-pkgs/mpv/master/0003-vo_gpu-placebo-update-for-upstream-API-changes.patch
-Patch4   : https://raw.githubusercontent.com/clearlinux-pkgs/mpv/master/0004-vo_gpu-libplacebo-require-v2.72.0.patch
-Patch5   : https://raw.githubusercontent.com/clearlinux-pkgs/mpv/master/0005-vo_gpu-placebo-keep-track-of-texture-sample-mode.patch
 Summary  : media player
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
@@ -25,7 +22,7 @@ BuildRequires : SPIRV-Headers-dev
 BuildRequires : libX11-dev
 BuildRequires : libva-dev
 BuildRequires : mesa-dev 
-BuildRequires : ffmpeg-dev >= 4.2.2
+BuildRequires : ffmpeg-dev
 BuildRequires : pkgconfig(alsa)
 BuildRequires : pkgconfig(libass)
 BuildRequires : pkgconfig(libplacebo)
@@ -43,12 +40,10 @@ BuildRequires : pkgconfig(xkbcommon)
 BuildRequires : pkgconfig(xrandr)
 BuildRequires : pkgconfig(xscrnsaver)
 BuildRequires : zlib-dev
-BuildRequires : SDL2
 BuildRequires : SDL2-dev
-BuildRequires : LuaJIT 
 BuildRequires : LuaJIT-dev
 BuildRequires : libjpeg-turbo-dev
-BuildRequires :  pkgconfig(libarchive)
+BuildRequires : pkgconfig(libarchive)
 
 
  
@@ -115,15 +110,11 @@ license components for the mpv package.
  
  
 %prep
-%setup -q -n mpv-%{version}
+%setup -q -n mpv-master
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
 
 
- 
 %build
 export LANG=C.UTF-8
 export GCC_IGNORE_WERROR=1
