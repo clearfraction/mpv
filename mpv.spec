@@ -44,6 +44,8 @@ BuildRequires : SDL2-dev
 BuildRequires : LuaJIT-dev
 BuildRequires : libjpeg-turbo-dev
 BuildRequires : pkgconfig(libarchive)
+# fonts-related
+BuildRequires : uchardet-dev v4l-utils-dev fontconfig-dev fribidi-dev harfbuzz-dev libpng-dev
 
 
  
