@@ -2,7 +2,7 @@
 
 Name     : mpv
 Version  : 0.33.1
-Release  : 1
+Release  : 100
 URL      : https://github.com/mpv-player/mpv
 #Source0  : https://github.com/mpv-player/mpv/archive/v%%{version}/%%{name}-%%{version}.tar.gz
 Source   : https://github.com/mpv-player/mpv/archive/refs/heads/master.zip 
