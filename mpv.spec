@@ -1,11 +1,11 @@
 %global abi_package %{nil}
 
 Name     : mpv
-Version  : 0.33.1
-Release  : 100
+Version  : 0.34.1
+Release  : 101
 URL      : https://github.com/mpv-player/mpv
-#Source0  : https://github.com/mpv-player/mpv/archive/v%%{version}/%%{name}-%%{version}.tar.gz
-Source   : https://github.com/mpv-player/mpv/archive/refs/heads/master.zip 
+Source0  : https://github.com/mpv-player/mpv/archive/v%{version}/%{name}-%{version}.tar.gz
+#Source   : https://github.com/mpv-player/mpv/archive/refs/heads/master.zip 
 Patch1   : 0001-waf-add-waf-as-a-patch-for-ClearLinux.patch
 Patch2   : 0002-Makefile-quick-wrapper-for-waf.patch
 Summary  : media player
@@ -15,6 +15,7 @@ Requires: mpv-bin = %{version}-%{release}
 Requires: mpv-data = %{version}-%{release}
 Requires: mpv-lib = %{version}-%{release}
 Requires: mpv-license = %{version}-%{release}
+Requires: mpv-filemap = %{version}-%{release}
 BuildRequires : Vulkan-Headers-dev
 BuildRequires : Vulkan-Loader-dev
 BuildRequires : SPIRV-Tools-dev
@@ -44,6 +45,7 @@ BuildRequires : SDL2-dev
 BuildRequires : LuaJIT-dev
 BuildRequires : libjpeg-turbo-dev
 BuildRequires : pkgconfig(libarchive)
+
 # fonts-related
 BuildRequires : v4l-utils-dev fontconfig-dev fribidi-dev harfbuzz-dev libpng-dev
 
@@ -59,6 +61,8 @@ Summary: bin components for the mpv package.
 Group: Binaries
 Requires: mpv-data = %{version}-%{release}
 Requires: mpv-license = %{version}-%{release}
+Requires: mpv-filemap = %{version}-%{release}
+
  
 %description bin
 bin components for the mpv package.
@@ -92,12 +96,13 @@ Group: Documentation
 %description doc
 doc components for the mpv package.
  
- 
 %package lib
 Summary: lib components for the mpv package.
 Group: Libraries
 Requires: mpv-data = %{version}-%{release}
 Requires: mpv-license = %{version}-%{release}
+Requires: mpv-filemap = %{version}-%{release}
+
  
 %description lib
 lib components for the mpv package.
@@ -109,13 +114,22 @@ Group: Default
  
 %description license
 license components for the mpv package.
- 
+
+%package filemap
+Summary: filemap components for the mpv package.
+Group: Default
+
+
+%description filemap
+filemap components for the mpv package.
  
 %prep
-%setup -q -n mpv-master
+%setup -q -n mpv-%{version}
 %patch1 -p1
 %patch2 -p1
-
+pushd ..
+cp -a mpv-%{version} buildavx2
+popd
 
 %build
 export LANG=C.UTF-8
@@ -126,14 +140,27 @@ export FFLAGS="$CFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 make  %{?_smp_mflags}
  
- 
+pushd ../buildavx2
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3"
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
+make  %{?_smp_mflags}
+popd 
+
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/mpv
 cp Copyright %{buildroot}/usr/share/package-licenses/mpv/Copyright
 cp LICENSE.GPL %{buildroot}/usr/share/package-licenses/mpv/LICENSE.GPL
 cp LICENSE.LGPL %{buildroot}/usr/share/package-licenses/mpv/LICENSE.LGPL
+pushd ../buildavx2/
+%make_install_v3
+popd
 %make_install
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+
  
 %files
 %defattr(-,root,root,-)
@@ -177,3 +204,10 @@ cp LICENSE.LGPL %{buildroot}/usr/share/package-licenses/mpv/LICENSE.LGPL
 /usr/share/package-licenses/mpv/Copyright
 /usr/share/package-licenses/mpv/LICENSE.GPL
 /usr/share/package-licenses/mpv/LICENSE.LGPL
+
+
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-mpv
+/usr/share/clear/optimized-elf/bin*
+/usr/share/clear/optimized-elf/lib*
