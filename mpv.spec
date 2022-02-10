@@ -19,7 +19,7 @@ Requires: mpv-filemap = %{version}-%{release}
 BuildRequires : Vulkan-Headers-dev
 BuildRequires : Vulkan-Loader-dev
 BuildRequires : SPIRV-Tools-dev
-BuildRequires : SPIRV-Headers-dev
+BuildRequires : SPIRV-Cross-dev
 BuildRequires : libX11-dev
 BuildRequires : libva-dev
 BuildRequires : mesa-dev 
@@ -50,7 +50,6 @@ BuildRequires : pkgconfig(libarchive)
 BuildRequires : v4l-utils-dev fontconfig-dev fribidi-dev harfbuzz-dev libpng-dev
 
 
- 
 %description
 TA ("Tree Allocator") is a wrapper around malloc() and related functions,
 adding features like automatically freeing sub-trees of memory allocations if
