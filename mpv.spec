@@ -114,39 +114,25 @@ Group: Default
 %description license
 license components for the mpv package.
 
-%package filemap
-Summary: filemap components for the mpv package.
-Group: Default
 
-
-%description filemap
-filemap components for the mpv package.
- 
 %prep
 %setup -q -n mpv-%{version}
 %patch1 -p1
 %patch2 -p1
-pushd ..
-cp -a mpv-%{version} buildavx2
-popd
+
 
 %build
 export LANG=C.UTF-8
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
-export CXXFLAGS="$CXXFLAGS -fno-lto "
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -mno-vzeroupper -mprefer-vector-width=256 "
+export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -mno-vzeroupper -mprefer-vector-width=256 "
+export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -mno-vzeroupper -mprefer-vector-width=256 "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -mno-vzeroupper -mprefer-vector-width=256 "
 make  %{?_smp_mflags}
- 
-pushd ../buildavx2
-export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
-export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
-export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
-export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3"
-export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
-make  %{?_smp_mflags}
-popd 
+
 
 %install
 rm -rf %{buildroot}
@@ -154,11 +140,7 @@ mkdir -p %{buildroot}/usr/share/package-licenses/mpv
 cp Copyright %{buildroot}/usr/share/package-licenses/mpv/Copyright
 cp LICENSE.GPL %{buildroot}/usr/share/package-licenses/mpv/LICENSE.GPL
 cp LICENSE.LGPL %{buildroot}/usr/share/package-licenses/mpv/LICENSE.LGPL
-pushd ../buildavx2/
-%make_install_v3
-popd
 %make_install
-/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
  
 %files
@@ -203,10 +185,3 @@ popd
 /usr/share/package-licenses/mpv/Copyright
 /usr/share/package-licenses/mpv/LICENSE.GPL
 /usr/share/package-licenses/mpv/LICENSE.LGPL
-
-
-%files filemap
-%defattr(-,root,root,-)
-/usr/share/clear/filemap/filemap-mpv
-/usr/share/clear/optimized-elf/bin*
-/usr/share/clear/optimized-elf/lib*
