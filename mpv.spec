@@ -1,26 +1,34 @@
 %global abi_package %{nil}
+%global gitdate 2022
+%global commit 813dfe19242bc7672470077cc37c373f92730e05
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name     : mpv
 Version  : 0.34.1
-Release  : 101
+Release  : 101.%{shortcommit}
 URL      : https://github.com/mpv-player/mpv
-Source0  : https://github.com/mpv-player/mpv/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0  : %{url}/archive/%{commit}/mpv-%{shortcommit}.tar.gz
 #Source   : https://github.com/mpv-player/mpv/archive/refs/heads/master.zip 
 Patch1   : 0001-waf-add-waf-as-a-patch-for-ClearLinux.patch
 Patch2   : 0002-Makefile-quick-wrapper-for-waf.patch
 Summary  : media player
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
+Requires: libXScrnSaver-lib
+Requires: libXpresent-lib
+Requires: ffmpeg-libs
 Requires: mpv-bin = %{version}-%{release}
 Requires: mpv-data = %{version}-%{release}
 Requires: mpv-lib = %{version}-%{release}
 Requires: mpv-license = %{version}-%{release}
-Requires: mpv-filemap = %{version}-%{release}
+#Requires: mpv-filemap = %%{version}-%%{release}
 BuildRequires : Vulkan-Headers-dev
 BuildRequires : Vulkan-Loader-dev
 BuildRequires : SPIRV-Tools-dev
 BuildRequires : SPIRV-Cross-dev
 BuildRequires : libX11-dev
+BuildRequires : libXScrnSaver-dev
+BuildRequires : libXpresent-dev
 BuildRequires : libva-dev
 BuildRequires : mesa-dev 
 BuildRequires : ffmpeg-dev
@@ -60,7 +68,7 @@ Summary: bin components for the mpv package.
 Group: Binaries
 Requires: mpv-data = %{version}-%{release}
 Requires: mpv-license = %{version}-%{release}
-Requires: mpv-filemap = %{version}-%{release}
+#Requires: mpv-filemap = %%{version}-%%{release}
 
  
 %description bin
@@ -100,7 +108,7 @@ Summary: lib components for the mpv package.
 Group: Libraries
 Requires: mpv-data = %{version}-%{release}
 Requires: mpv-license = %{version}-%{release}
-Requires: mpv-filemap = %{version}-%{release}
+#Requires: mpv-filemap = %%{version}-%%{release}
 
  
 %description lib
@@ -116,7 +124,7 @@ license components for the mpv package.
 
 
 %prep
-%setup -q -n mpv-%{version}
+%setup -q -n mpv-%{commit}
 %patch1 -p1
 %patch2 -p1
 
@@ -141,6 +149,7 @@ cp Copyright %{buildroot}/usr/share/package-licenses/mpv/Copyright
 cp LICENSE.GPL %{buildroot}/usr/share/package-licenses/mpv/LICENSE.GPL
 cp LICENSE.LGPL %{buildroot}/usr/share/package-licenses/mpv/LICENSE.LGPL
 %make_install
+rm -f %{buildroot}/usr/share/man/man1/mpv.1
 
  
 %files
@@ -165,7 +174,6 @@ cp LICENSE.LGPL %{buildroot}/usr/share/package-licenses/mpv/LICENSE.LGPL
 %files dev
 %defattr(-,root,root,-)
 /usr/include/mpv/client.h
-/usr/include/mpv/opengl_cb.h
 /usr/include/mpv/render.h
 /usr/include/mpv/render_gl.h
 /usr/include/mpv/stream_cb.h
