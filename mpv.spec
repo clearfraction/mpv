@@ -1,6 +1,6 @@
 %global abi_package %{nil}
-%global gitdate 2022
-%global commit 813dfe19242bc7672470077cc37c373f92730e05
+%global gitdate 20220816
+%global commit 813164cc07124aabfbc4aa3b8f9fe33fe222c77c
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name     : mpv
@@ -14,8 +14,6 @@ Patch2   : 0002-Makefile-quick-wrapper-for-waf.patch
 Summary  : media player
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
-Requires: libXScrnSaver-lib
-Requires: libXpresent-lib
 Requires: ffmpeg-libs
 Requires: mpv-bin = %{version}-%{release}
 Requires: mpv-data = %{version}-%{release}
@@ -135,6 +133,7 @@ export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
+export LDFLAGS="-Wl,-rpath=/opt/3rd-party/bundles/clearfraction/usr/lib64,-rpath=/usr/lib64"
 export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -mno-vzeroupper -mprefer-vector-width=256 "
 export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -mno-vzeroupper -mprefer-vector-width=256 "
 export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -mno-vzeroupper -mprefer-vector-width=256 "
