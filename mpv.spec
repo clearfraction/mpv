@@ -1,6 +1,6 @@
 %global abi_package %{nil}
-%global gitdate 20220816
-%global commit 813164cc07124aabfbc4aa3b8f9fe33fe222c77c
+%global gitdate 20220821
+%global commit 6c1f01d2841281fd594f8ce874b4113640c07553
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name     : mpv
@@ -46,6 +46,7 @@ BuildRequires : pkgconfig(xinerama)
 BuildRequires : pkgconfig(xkbcommon)
 BuildRequires : pkgconfig(xrandr)
 BuildRequires : pkgconfig(xscrnsaver)
+BuildRequires : pkgconfig(xpresent)
 BuildRequires : zlib-dev
 BuildRequires : SDL2-dev
 BuildRequires : LuaJIT-dev
