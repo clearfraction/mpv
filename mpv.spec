@@ -27,6 +27,7 @@ BuildRequires : SPIRV-Cross-dev
 BuildRequires : libX11-dev
 BuildRequires : libXScrnSaver-dev
 BuildRequires : libXpresent-dev
+BuildRequires : libXv-dev
 BuildRequires : libva-dev
 BuildRequires : mesa-dev 
 BuildRequires : ffmpeg-dev
@@ -47,6 +48,7 @@ BuildRequires : pkgconfig(xkbcommon)
 BuildRequires : pkgconfig(xrandr)
 BuildRequires : pkgconfig(xscrnsaver)
 BuildRequires : pkgconfig(xpresent)
+BuildRequires : pkgconfig(xv)
 BuildRequires : zlib-dev
 BuildRequires : SDL2-dev
 BuildRequires : LuaJIT-dev
