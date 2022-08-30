@@ -1,11 +1,11 @@
 %global abi_package %{nil}
-%global gitdate 20220821
-%global commit 6c1f01d2841281fd594f8ce874b4113640c07553
+%global gitdate 20220829
+%global commit 0f30b0757fb969455119d83d3f29dec3d66f6c9c
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name     : mpv
 Version  : 0.34.1
-Release  : 101.%{shortcommit}
+Release  : 102.%{shortcommit}
 URL      : https://github.com/mpv-player/mpv
 Source0  : %{url}/archive/%{commit}/mpv-%{shortcommit}.tar.gz
 #Source   : https://github.com/mpv-player/mpv/archive/refs/heads/master.zip 
