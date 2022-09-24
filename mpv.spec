@@ -172,6 +172,7 @@ rm -f %{buildroot}/usr/share/man/man1/mpv.1
 /usr/share/icons/hicolor/symbolic/apps/mpv-symbolic.svg
 /usr/share/zsh/site-functions/_mpv
 /usr/share/bash-completion/completions/mpv
+/usr/share/metainfo/mpv.metainfo.xml
  
 %files dev
 %defattr(-,root,root,-)
