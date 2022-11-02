@@ -1,10 +1,10 @@
-%global gitdate 20221014
-%global commit dfb5b0c55fa442ca53208f6b38ad3885acf945f8
+%global gitdate 20221101
+%global commit 6acb7db9facd41f67aebb54a0daeddaaa30d54b3
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name     : mpv
 Version  : 0.34.1
-Release  : 107.%{shortcommit}
+Release  : %{gitdate}.%{shortcommit}
 URL      : https://github.com/mpv-player/mpv
 Source0  : %{url}/archive/%{commit}/mpv-%{shortcommit}.tar.gz
 #Source   : https://github.com/mpv-player/mpv/archive/refs/heads/master.zip 
