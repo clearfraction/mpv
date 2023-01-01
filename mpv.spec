@@ -1,5 +1,5 @@
-%global gitdate 20221112
-%global commit 75d938912ddd50f5658d874c59e1b50e13b28bf1
+%global gitdate 20221231
+%global commit ad65c8855b60df3c95026ee7b315eca31c59f3bc
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name     : mpv
