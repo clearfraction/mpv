@@ -1,15 +1,13 @@
-%global gitdate 20230723
-%global commit f4210f84906c3b00a65fba198c8127b6757b9350
+%global gitdate 20231121
+%global commit 818ce7c51a6b9179307950e919983e0909942098
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name     : mpv
-Version  : 0.36.0
+Version  : 0.37.0
 Release  : %{gitdate}.%{shortcommit}
 URL      : https://github.com/mpv-player/mpv
 Source0  : %{url}/archive/%{commit}/mpv-%{shortcommit}.tar.gz
 #Source   : https://github.com/mpv-player/mpv/archive/refs/heads/master.zip 
-Patch1   : 0001-waf-add-waf-as-a-patch-for-ClearLinux.patch
-Patch2   : 0002-Makefile-quick-wrapper-for-waf.patch
 Summary  : media player
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
@@ -19,6 +17,7 @@ Requires: mpv-data = %{version}-%{release}
 Requires: mpv-lib = %{version}-%{release}
 Requires: mpv-license = %{version}-%{release}
 #Requires: mpv-filemap = %%{version}-%%{release}
+BuildRequires : buildreq-meson
 BuildRequires : Vulkan-Headers-dev
 BuildRequires : Vulkan-Loader-dev
 BuildRequires : SPIRV-Tools-dev
@@ -54,6 +53,7 @@ BuildRequires : LuaJIT-dev
 BuildRequires : libjpeg-turbo-dev
 BuildRequires : pkgconfig(libarchive)
 BuildRequires : pipewire-dev
+BuildRequires : shaderc-dev uchardet-dev zimg-dev SPIRV-Headers-dev
 
 # fonts-related
 BuildRequires : v4l-utils-dev fontconfig-dev fribidi-dev harfbuzz-dev libpng-dev
@@ -126,9 +126,7 @@ license components for the mpv package.
 
 %prep
 %setup -q -n mpv-%{commit}
-%patch1 -p1
-%patch2 -p1
-
+git config --global --add safe.directory /home
 
 %build
 export LANG=C.UTF-8
@@ -141,17 +139,76 @@ export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=a
 export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
 export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
 export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
-make  %{?_smp_mflags}
-
+meson --libdir=lib64 --prefix=/usr --buildtype=plain \
+      -Dalsa=enabled \
+      -Dbuild-date=false \
+      -Dcaca=disabled \
+      -Dcdda=disabled \
+      -Dcplayer=true \
+      -Dcplugins=enabled \
+      -Dcuda-hwaccel=disabled \
+      -Dcuda-interop=disabled \
+      -Ddmabuf-wayland=enabled \
+      -Ddrm=enabled \
+      -Ddvbin=enabled \
+      -Ddvdnav=disabled \
+      -Degl-drm=enabled \
+      -Degl-wayland=enabled \
+      -Degl-x11=enabled \
+      -Degl=enabled \
+      -Dgbm=enabled \
+      -Dgl-x11=enabled \
+      -Dgl=enabled \
+      -Dhtml-build=disabled \
+      -Dpdf-build=disabled \
+      -Diconv=enabled \
+      -Djack=disabled \
+      -Djavascript=disabled \
+      -Djpeg=enabled \
+      -Dlcms2=disabled \
+      -Dlibarchive=enabled \
+      -Dlibavdevice=enabled \
+      -Dlibbluray=disabled \
+      -Dlibmpv=true \
+      -Dlua=enabled \
+      -Dmanpage-build=disabled \
+      -Dopenal=disabled \
+      -Dopensles=disabled \
+      -Doss-audio=disabled \
+      -Dpipewire=enabled \
+      -Dplain-gl=enabled \
+      -Dpulse=enabled \
+      -Drubberband=disabled \
+      -Dsdl2-audio=disabled \
+      -Dsdl2-gamepad=disabled \
+      -Dsdl2-video=disabled \
+      -Dsdl2=disabled \
+      -Dshaderc=enabled \
+      -Dsndio=disabled \
+      -Dspirv-cross=enabled \
+      -Duchardet=enabled \
+      -Dvaapi-drm=enabled \
+      -Dvaapi-wayland=enabled \
+      -Dvaapi-x11=enabled \
+      -Dvaapi=enabled \
+      -Dvapoursynth=disabled \
+      -Dvdpau-gl-x11=disabled \
+      -Dvdpau=disabled \
+      -Dvector=enabled \
+      -Dvulkan-interop=enabled \
+      -Dvulkan=enabled \
+      -Dwayland=enabled \
+      -Dwerror=false \
+      -Dx11=enabled \
+      -Dxv=enabled \
+      -Dzimg=enabled \
+      -Dzlib=enabled      builddir
+      
+ninja -v -C builddir
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/package-licenses/mpv
-cp Copyright %{buildroot}/usr/share/package-licenses/mpv/Copyright
-cp LICENSE.GPL %{buildroot}/usr/share/package-licenses/mpv/LICENSE.GPL
-cp LICENSE.LGPL %{buildroot}/usr/share/package-licenses/mpv/LICENSE.LGPL
-%make_install
-rm -f %{buildroot}/usr/share/man/man1/mpv.1
+DESTDIR=%{buildroot} ninja -C builddir install
+rm -rvf %{buildroot}/usr/share/doc
 
  
 %files
@@ -185,7 +242,6 @@ rm -f %{buildroot}/usr/share/man/man1/mpv.1
  
 %files doc
 %defattr(0644,root,root,0755)
-%doc /usr/share/doc/mpv/*
  
 %files lib
 %defattr(-,root,root,-)
@@ -193,6 +249,4 @@ rm -f %{buildroot}/usr/share/man/man1/mpv.1
  
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/mpv/Copyright
-/usr/share/package-licenses/mpv/LICENSE.GPL
-/usr/share/package-licenses/mpv/LICENSE.LGPL
+
