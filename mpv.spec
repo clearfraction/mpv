@@ -185,7 +185,7 @@ meson --libdir=lib64 --prefix=/usr --buildtype=plain \
       -Dsdl2=disabled \
       -Dshaderc=auto \
       -Dsndio=disabled \
-      -Dspirv-cross=enabled \
+      -Dspirv-cross=disabled \
       -Duchardet=enabled \
       -Dvaapi-drm=enabled \
       -Dvaapi-wayland=enabled \
