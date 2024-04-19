@@ -139,7 +139,7 @@ export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=a
 export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
 export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
 export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
-meson --libdir=lib64 --prefix=/usr --buildtype=plain \
+meson --libdir=lib64 --prefix=/usr --buildtype=plain --auto-features enabled \
       -Dalsa=enabled \
       -Dbuild-date=false \
       -Dcaca=disabled \
@@ -183,7 +183,7 @@ meson --libdir=lib64 --prefix=/usr --buildtype=plain \
       -Dsdl2-gamepad=disabled \
       -Dsdl2-video=disabled \
       -Dsdl2=disabled \
-      -Dshaderc=enabled \
+      -Dshaderc=auto \
       -Dsndio=disabled \
       -Dspirv-cross=enabled \
       -Duchardet=enabled \
