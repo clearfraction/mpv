@@ -139,70 +139,13 @@ export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=a
 export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
 export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
 export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
-meson --libdir=lib64 --prefix=/usr --buildtype=plain \
-      -Dalsa=enabled \
-      -Dbuild-date=false \
-      -Dcaca=disabled \
-      -Dcdda=disabled \
-      -Dcplayer=true \
-      -Dcplugins=enabled \
-      -Dcuda-hwaccel=disabled \
-      -Dcuda-interop=disabled \
-      -Ddmabuf-wayland=enabled \
-      -Ddrm=enabled \
-      -Ddvbin=enabled \
-      -Ddvdnav=disabled \
-      -Degl-drm=enabled \
-      -Degl-wayland=enabled \
-      -Degl-x11=enabled \
-      -Degl=enabled \
-      -Dgbm=enabled \
-      -Dgl-x11=enabled \
-      -Dgl=enabled \
-      -Dhtml-build=disabled \
-      -Dpdf-build=disabled \
-      -Diconv=enabled \
-      -Djack=disabled \
-      -Djavascript=disabled \
-      -Djpeg=enabled \
-      -Dlcms2=disabled \
-      -Dlibarchive=enabled \
-      -Dlibavdevice=enabled \
-      -Dlibbluray=disabled \
-      -Dlibmpv=true \
-      -Dlua=enabled \
-      -Dmanpage-build=disabled \
-      -Dopenal=disabled \
-      -Dopensles=disabled \
-      -Doss-audio=disabled \
-      -Dpipewire=enabled \
-      -Dplain-gl=enabled \
-      -Dpulse=enabled \
-      -Drubberband=disabled \
-      -Dsdl2-audio=disabled \
-      -Dsdl2-gamepad=disabled \
-      -Dsdl2-video=disabled \
-      -Dsdl2=disabled \
-      -Dshaderc=auto \
-      -Dsndio=disabled \
-      -Dspirv-cross=disabled \
-      -Duchardet=enabled \
-      -Dvaapi-drm=enabled \
-      -Dvaapi-wayland=enabled \
-      -Dvaapi-x11=enabled \
-      -Dvaapi=enabled \
-      -Dvapoursynth=disabled \
-      -Dvdpau-gl-x11=disabled \
-      -Dvdpau=disabled \
-      -Dvector=enabled \
-      -Dvulkan-interop=disabled \
-      -Dvulkan=enabled \
-      -Dwayland=enabled \
-      -Dwerror=false \
-      -Dx11=enabled \
-      -Dxv=enabled \
-      -Dzimg=enabled \
-      -Dzlib=enabled      builddir
+
+meson --libdir=lib64 --prefix=/usr --buildtype=plain --auto-features=auto       \
+  -Dcdda=disabled             \
+  -Dlibmpv=true              \
+  -Ddvbin=disabled            \
+  -Ddvdnav=disabled           \
+  -Dopenal=disabled builddir      
       
 ninja -v -C builddir
 
