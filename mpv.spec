@@ -195,7 +195,7 @@ meson --libdir=lib64 --prefix=/usr --buildtype=plain \
       -Dvdpau-gl-x11=disabled \
       -Dvdpau=disabled \
       -Dvector=enabled \
-      -Dvulkan-interop=enabled \
+      -Dvulkan-interop=disabled \
       -Dvulkan=enabled \
       -Dwayland=enabled \
       -Dwerror=false \
