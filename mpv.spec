@@ -54,6 +54,8 @@ BuildRequires : libjpeg-turbo-dev
 BuildRequires : pkgconfig(libarchive)
 BuildRequires : pipewire-dev
 BuildRequires : shaderc-dev uchardet-dev zimg-dev SPIRV-Headers-dev
+BuildRequires : pkgconfig(vapoursynth)
+BuildRequires : pkgconfig(vapoursynth-script)
 
 # fonts-related
 BuildRequires : v4l-utils-dev fontconfig-dev fribidi-dev harfbuzz-dev libpng-dev
