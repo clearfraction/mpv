@@ -1,9 +1,9 @@
-%global gitdate 20240930
-%global commit a0fba7be57f3822d967b04f0f6b6d6341e7516e7
+%global gitdate 20250325
+%global commit e48ac7ce08462f5e33af6ef9deeac6fa87eef01e
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name     : mpv
-Version  : 0.39.0
+Version  : 0.40.0
 Release  : %{gitdate}.%{shortcommit}
 URL      : https://github.com/mpv-player/mpv
 Source0  : %{url}/archive/%{commit}/mpv-%{shortcommit}.tar.gz
