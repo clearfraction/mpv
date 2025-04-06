@@ -174,6 +174,7 @@ rm -rvf %{buildroot}/usr/share/doc
 /usr/share/icons/hicolor/symbolic/apps/mpv-symbolic.svg
 /usr/share/zsh/site-functions/_mpv
 /usr/share/bash-completion/completions/mpv
+/usr/share/fish/vendor_completions.d/mpv.fish
 /usr/share/metainfo/mpv.metainfo.xml
  
 %files dev
